@@ -14,7 +14,7 @@ class  Contact extends Component {
             telnum: '',
             email: '',
             agree: false,
-            conctactType: 'Tel.',
+            contactType: 'Tel.',
             message: ''
         } 
 
@@ -119,7 +119,7 @@ class  Contact extends Component {
                                     </FormGroup>
                                 </Col>
                                 <Col md={{size: 3, offset: 1}}>
-                                    <Input type="select" name="contactType" value={this.state.conctactType} onChange={this.handleInputChange}>
+                                    <Input type="select" name="contactType" value={this.state.contactType} onChange={this.handleInputChange}>
                                         <option>Tel.</option>
                                         <option>Email</option>
                                     </Input>
