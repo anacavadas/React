@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Menu from './MenuComponent';
 import Home from './HomeComponent';
 import Contact from './ContactComponent';
+import About from './AboutComponent';
 import DishDetail from './DishDetailComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
@@ -48,7 +49,8 @@ class Main extends Component {
           <Route path="/home" component={HomePage}/>
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes}/>}/>
           <Route path='/menu/:dishId' component={DishWithId} />
-          <Route path="/contactus" component={Contact}/>          
+          <Route path="/contactus" component={Contact}/>
+          <Route path="/aboutus" component={() => <About leaders={this.state.leaders}/>}/>     
           <Redirect to="/home"/>
         </Switch>
         <Footer />
