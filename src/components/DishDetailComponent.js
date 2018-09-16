@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
 const maxLength = (len) => (val) => !(val) || (val.length <= len);
 const minLength = (len) => (val) => val && (val.length >= len);
@@ -13,13 +14,18 @@ const minLength = (len) => (val) => val && (val.length >= len);
         if (dish != null) {            
             return (
                 <div key={dish.id} className="col-12 col-md-5 m-1">
-                    <Card>
-                        <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
-                        <CardBody> 
-                            <CardTitle>{dish.name}</CardTitle>
-                            <CardText>{dish.description}</CardText>
-                        </CardBody>
-                    </Card>
+                    <FadeTransform in 
+                        transformProps={{
+                            exitTransform: 'scale(0.5) translateY(-50%)'
+                        }}>
+                        <Card>
+                            <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+                            <CardBody> 
+                                <CardTitle>{dish.name}</CardTitle>
+                                <CardText>{dish.description}</CardText>
+                            </CardBody>
+                        </Card>
+                    </FadeTransform>
                 </div>
             )
         }
@@ -35,15 +41,16 @@ const minLength = (len) => (val) => val && (val.length >= len);
             const commentsGlobal = comments.map(c => { 
                     
                 return (
-                    <li key={c.id}>
-                        <p>{c.comment}</p>
-                        <p>-- {c.author} , {new Intl.DateTimeFormat('en-US', {
-                            year: 'numeric',
-                            month: 'short',
-                            day: '2-digit'
-                        }).format(new Date(Date.parse(c.date)))}</p>
-                        
-                    </li>
+                    <Fade in>
+                        <li key={c.id}>
+                            <p>{c.comment}</p>
+                            <p>-- {c.author} , {new Intl.DateTimeFormat('en-US', {
+                                year: 'numeric',
+                                month: 'short',
+                                day: '2-digit'
+                            }).format(new Date(Date.parse(c.date)))}</p>
+                        </li>
+                    </Fade>
                 )
             });
                 
@@ -51,7 +58,9 @@ const minLength = (len) => (val) => val && (val.length >= len);
                 <div className='col-12 col-md-5 m-1'>
                     <h4> Comments </h4>
                     <ul className='list-unstyled'>
-                        {commentsGlobal}
+                        <Stagger in>
+                            {commentsGlobal}
+                        </Stagger>
                     </ul>
                     
                     <CommentForm dishId = {dishId} postComment = {postComment}/> 
